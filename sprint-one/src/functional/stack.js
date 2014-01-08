@@ -11,9 +11,7 @@ var makeStack = function(){
   };
 
   instance.pop = function(){
-    if(size !== 0) {
-      size--;
-    }
+    size = size && --size;
     var result = storage[size];
     storage[size] = undefined;
     return result;
