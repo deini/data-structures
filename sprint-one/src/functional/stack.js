@@ -1,21 +1,27 @@
 var makeStack = function(){
-    var instance = {};
+  var instance = {};
 
   // Use an object with numeric keys to store values
-    var storage = {};
-  /* START PROMPT
-    var size; // Hint: set an initial value here
-  -END PROMPT */
+  var storage = {};
+  var size = 0; // Hint: set an initial value here
 
   // Implement the methods below
   instance.push = function(value){
+    storage[size++] = value;
   };
 
   instance.pop = function(){
+    if(size !== 0) {
+      size--;
+    }
+    var result = storage[size];
+    storage[size] = undefined;
+    return result;
   };
 
   instance.size = function(){
+    return size;
   };
-  
-    return instance;
-  };
+
+  return instance;
+};
