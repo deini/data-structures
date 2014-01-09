@@ -17,12 +17,10 @@ queueMethods.enqueue = function(value) {
 };
 
 queueMethods.dequeue = function() {
-  if (this.thesize) {
-    this.thesize--;
-    this.first++;
-    var result = this.storage[this.first];
-    delete this.storage[this.first];
-  }
+  this.thesize = this.thesize && --this.thesize;
+  var result = this.storage[this.first];
+  delete this.storage[this.first];
+  this.first++;
   return result;
 };
 
