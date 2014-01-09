@@ -25,5 +25,14 @@ treeMethods.addChild = function(value){
 };
 
 treeMethods.contains = function(target){
+  if(this.value === target) {
+    return true;
+  }
+  if (this.children) {
+    for (var i = 0; i < this.children.length; i++ ) {
+      return this.children[i].contains(target);
+    }
+  }
+  return false;
 };
 
