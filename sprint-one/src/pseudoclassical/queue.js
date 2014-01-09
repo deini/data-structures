@@ -1,25 +1,15 @@
-var Queue = function() {
-  // Hey! Copy your code from src/prototypal/queue.js and paste it here
+var Queue = function(){
+  this.storage = {};
+  this.thesize = 0;
+  this.first = 0;
 };
 
-var makeQueue = function(){
-  var instance = Object.create(queueMethods);
-
-  instance.storage = {};
-  instance.thesize = 0;
-  instance.first = 0;
-  
-  return instance;
-};
-
-var queueMethods = {};
-
-queueMethods.enqueue = function(value) {
+Queue.prototype.enqueue = function(value) {
   this.storage[this.thesize+this.first] = value;
   this.thesize++;
 };
 
-queueMethods.dequeue = function() {
+Queue.prototype.dequeue = function() {
   this.thesize = this.thesize && --this.thesize;
   var result = this.storage[this.first];
   delete this.storage[this.first];
@@ -27,6 +17,8 @@ queueMethods.dequeue = function() {
   return result;
 };
 
-queueMethods.size = function() {
+Queue.prototype.size = function() {
   return this.thesize;
-}
+};
+
+var MyQueue = new Queue();
