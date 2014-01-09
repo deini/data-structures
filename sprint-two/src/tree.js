@@ -24,12 +24,6 @@ treeMethods.addChild = function(value){
 };
 
 treeMethods.contains = function(target){
-  var found = false;
-  var subroutine = function(node){
-
-  }
-
-
 
   if(this.value === target) {
     return true;
