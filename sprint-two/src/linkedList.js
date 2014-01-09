@@ -37,6 +37,17 @@ var makeLinkedList = function(){
     return false;
   };
 
+  list.addToHead = function(value) {
+    if (list.tail) {
+      list.head.prev =  makeNode(value);
+      list.head.prev.next = list.head;
+      list.head = list.head.prev;
+    } else {
+      list.head = makeNode(value);
+      list.tail = list.head;
+    }
+  };
+
   return list;
 };
 
@@ -44,6 +55,7 @@ var makeNode = function(value){
   var node = {};
   node.value = value;
   node.next = null;
+  node.prev = null;
 
   return node;
 };
