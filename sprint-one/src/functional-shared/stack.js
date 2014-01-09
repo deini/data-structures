@@ -4,38 +4,19 @@ var makeStack = function(){
   // Use an object with numeric keys to store values
   instance.storage = {};
   instance.thesize = 0;
-  _.extend(instance, makeStack.stackMethods);
-
-  // // Implement the methods below
-  // instance.push = function(value){
-  //   storage[size] = value;
-  //   size++;
-  // };
-
-  // instance.pop = function(){
-  //   if (size) {
-  //     size--;
-  //     var result = storage[size];
-  //     delete storage[size];
-  //   }
-  //   return result;
-  // };
-
-  // instance.size = function(){
-  //   return size;
-  // };
+  _.extend(instance, stackMethods);
   
   return instance;
 };
 
-makeStack.stackMethods = {};
+var stackMethods = {};
 
-makeStack.stackMethods.push = function(value) {
+stackMethods.push = function(value) {
   this.storage[this.thesize] = value;
   this.thesize++;
 };
 
-makeStack.stackMethods.pop = function() {
+stackMethods.pop = function() {
   if (this.thesize) {
     this.thesize--;
     var result = this.storage[this.thesize];
@@ -44,8 +25,7 @@ makeStack.stackMethods.pop = function() {
   return result;
 };
 
-makeStack.stackMethods.size = function() {
-  //debugger;
+stackMethods.size = function() {
   return this.thesize;
 }
 
