@@ -1,25 +1,16 @@
-var Stack = function() {
-  // Hey! Copy your code from src/prototypal/stack.js and paste it here
+var Stack = function(){
+
+  this.storage = {};
+  this.thesize = 0;
+
 };
 
-var makeStack = function(){
-  var instance = Object.create(stackMethods);
-
-  // Use an object with numeric keys to store values
-  instance.storage = {};
-  instance.thesize = 0;
-  
-  return instance;
-};
-
-var stackMethods = {};
-
-stackMethods.push = function(value) {
+Stack.prototype.push = function(value) {
   this.storage[this.thesize] = value;
   this.thesize++;
 };
 
-stackMethods.pop = function() {
+Stack.prototype.pop = function() {
   if (this.thesize) {
     this.thesize--;
     var result = this.storage[this.thesize];
@@ -28,7 +19,8 @@ stackMethods.pop = function() {
   return result;
 };
 
-stackMethods.size = function() {
+Stack.prototype.size = function() {
   return this.thesize;
 };
 
+var MyStack = new Stack();
