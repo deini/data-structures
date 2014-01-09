@@ -1,22 +1,22 @@
 var makeStack = function(){
-  var instance = {};
+  var instance = Object.create(makeStack.stackMethods);
 
   // Use an object with numeric keys to store values
   instance.storage = {};
   instance.thesize = 0;
-  _.extend(instance, stackMethods);
+  //_.extend(instance, stackMethods);
   
   return instance;
 };
 
-var stackMethods = {};
+makeStack.stackMethods = {};
 
-stackMethods.push = function(value) {
+makeStack.stackMethods.push = function(value) {
   this.storage[this.thesize] = value;
   this.thesize++;
 };
 
-stackMethods.pop = function() {
+makeStack.stackMethods.pop = function() {
   if (this.thesize) {
     this.thesize--;
     var result = this.storage[this.thesize];
@@ -25,8 +25,7 @@ stackMethods.pop = function() {
   return result;
 };
 
-stackMethods.size = function() {
+makeStack.stackMethods.size = function() {
   return this.thesize;
-}
+};
 
-var stackMethods = {};
