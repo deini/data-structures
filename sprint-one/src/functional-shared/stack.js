@@ -2,60 +2,50 @@ var makeStack = function(){
   var instance = {};
 
   // Use an object with numeric keys to store values
-  var storage = {};
-  var size = 0;
+  instance.storage = {};
+  instance.thesize = 0;
+  _.extend(instance, makeStack.stackMethods);
 
-  // Implement the methods below
-  instance.push = function(value){
-    storage[size] = value;
-    size++;
-  };
+  // // Implement the methods below
+  // instance.push = function(value){
+  //   storage[size] = value;
+  //   size++;
+  // };
 
-  instance.pop = function(){
-    if (size) {
-      size--;
-      var result = storage[size];
-      delete storage[size];
-    }
-    return result;
-  };
+  // instance.pop = function(){
+  //   if (size) {
+  //     size--;
+  //     var result = storage[size];
+  //     delete storage[size];
+  //   }
+  //   return result;
+  // };
 
-  instance.size = function(){
-    return size;
-  };
+  // instance.size = function(){
+  //   return size;
+  // };
   
   return instance;
 };
-  
-var stackMethods = {};
 
-// var stackMethods = function(stack) {
-//   _.extend(stack, {pop: this.pop});
-// };
+makeStack.stackMethods = {};
 
-var extend = function() {
-  _.extend(this, makeStack);
+makeStack.stackMethods.push = function(value) {
+  this.storage[this.thesize] = value;
+  this.thesize++;
 };
 
-stackMethods.extend();
+makeStack.stackMethods.pop = function() {
+  if (this.thesize) {
+    this.thesize--;
+    var result = this.storage[this.thesize];
+    delete this.storage[this.thesize];
+  }
+  return result;
+};
 
-// var extend = function(obj) {
-//   _.e
-//   var result = {pop: this.pop};
-// }
+makeStack.stackMethods.size = function() {
+  //debugger;
+  return this.thesize;
+}
 
-// var extend = function(to, from){
-//   for (var key in from){
-//     to[key] = from[key];
-//   }
-// };
-
-// makeStack.stackMethods.pop = function() {
-//   if (this.size) {
-//     this.size++;
-//     var result = this.storage[this.size];
-//     delete this.storage[this.size];
-//   }
-//   return result;
-
-// };
