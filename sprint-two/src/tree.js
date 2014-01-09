@@ -2,13 +2,26 @@ var makeTree = function(value){
   var newTree = {};
   newTree.value = value;
   newTree.children = undefined;
+  extend(newTree, treeMethods);
   return newTree;
 };
 
+var extend = function(to, from) {
+  for (var key in from) {
+    to[key] = from[key];
+  }
+};
 
 var treeMethods = {};
 
 treeMethods.addChild = function(value){
+  debugger;
+  if (this.children) {
+    this.children.push(makeTree(value));
+  }
+  else {
+    this.children = [makeTree(value)];
+  }
 };
 
 treeMethods.contains = function(target){
