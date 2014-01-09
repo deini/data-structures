@@ -1,10 +1,9 @@
 var makeQueue = function(){
-  var instance = {};
+  var instance = Object.create(queueMethods);
 
   instance.storage = {};
   instance.thesize = 0;
   instance.first = 0;
-  _.extend(instance, queueMethods);
   
   return instance;
 };
@@ -27,7 +26,3 @@ queueMethods.dequeue = function() {
 queueMethods.size = function() {
   return this.thesize;
 }
-
-
-
-var queueMethods = {};
