@@ -2,23 +2,19 @@ var makeQueue = function(){
   var instance = {};
 
   // Use an object with numeric keys to store values
-  var storage = {};
+  var storage = makeLinkedList();
   var size = 0;
-  var first = 0;
 
   // Implement the methods below
 
   instance.enqueue = function(value){
-    storage[size+first] = value;
+    storage.addToTail(value);
     size++;
   };
 
   instance.dequeue = function(){
     size = size && --size;
-    var result = storage[first];
-    delete storage[first];
-    first++;
-    return result;
+    return storage.removeHead();
   };
 
   instance.size = function(){

@@ -1,9 +1,8 @@
 var makeQueue = function(){
   var instance = Object.create(queueMethods);
 
-  instance.storage = {};
+  instance.storage = makeLinkedList();
   instance.thesize = 0;
-  instance.first = 0;
   
   return instance;
 };
@@ -11,16 +10,13 @@ var makeQueue = function(){
 var queueMethods = {};
 
 queueMethods.enqueue = function(value) {
-  this.storage[this.thesize+this.first] = value;
+  this.storage.addToTail(value);
   this.thesize++;
 };
 
 queueMethods.dequeue = function() {
   this.thesize = this.thesize && --this.thesize;
-  var result = this.storage[this.first];
-  delete this.storage[this.first];
-  this.first++;
-  return result;
+  return this.storage.removeHead();
 };
 
 queueMethods.size = function() {
