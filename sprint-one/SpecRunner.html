@@ -13,13 +13,15 @@
         border-width: 0;
       }
     </style>
+    
     <script src="../lib/jquery/jquery.js"></script>
+    <script type="text/javascript" src="../sprint-two/src/linkedList.js"></script>
+
     <script>
       $(function(){
         $.each(['functional', 'functional-shared', 'prototypal', 'pseudoclassical'], function(i, variant){
           $('<iframe src="' + window.location.toString().replace('.html', 'Section.html?') + variant + '" />').appendTo(document.body);
         });
-
         $(window).resize(function() {
           $('iframe').height($(this).height());
         }).trigger('resize');
