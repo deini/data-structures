@@ -44,4 +44,9 @@ describe("tree", function() {
     assert.isTrue(tree.contains(8));
   });
 
+  it("should add a parent", function() {
+    tree.addChild(5);
+    tree.addChild(10);
+    expect(tree.children[0].parent).to.equal(tree);
+  });
 });
