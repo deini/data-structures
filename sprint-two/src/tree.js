@@ -58,3 +58,27 @@ treeMethods.contains = function(target){
   return false;
 };
 
+treeMethods.traverse = function(func) {
+  func(this.value);
+  if (this.children) {
+    for (var i = 0; i < this.children.length; i++ ) {
+      this.children[i].traverse(func);
+    }
+  }
+};
+
+// // BinarySearchTree.prototype.depthFirstLog = function(func) {
+//   var results = [];
+
+//   var recurse = function(node) {
+//     if(node) {
+//       results.push(func(node.value));
+//       recurse(node.left);
+//       recurse(node.right);
+//     }
+//   };
+
+//   recurse(this);
+//   return results;
+// };
+
