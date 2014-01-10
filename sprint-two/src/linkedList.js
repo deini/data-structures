@@ -21,6 +21,7 @@ var makeLinkedList = function(){
         list.tail = null;
       } else {
         list.head = list.head.next;
+        list.head.prev = null;
       }
       return result;
     }
