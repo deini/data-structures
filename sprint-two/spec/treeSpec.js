@@ -60,4 +60,14 @@ describe("tree", function() {
     assert.isFalse(tree.contains(5));
   });
 
+  it("it should traverse the tree calling the callback on each value", function() {
+    tree.addChild(5);
+    tree.addChild(10);
+    tree.children[0].addChild(3);
+    var results = [];
+    tree.traverse(function(val) { results.push(val); });
+    expect(results[0]).to.equal(undefined);
+    expect(results[3]).to.equal(10);
+  });
+
 });
