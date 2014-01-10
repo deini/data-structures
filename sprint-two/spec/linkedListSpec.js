@@ -58,6 +58,12 @@ describe("linkedList", function() {
     expect(linkedList.head.next.value).to.equal(4);
   });
 
+  it("should point to the previous node", function(){
+    linkedList.addToHead(4);
+    linkedList.addToHead(5);
+    expect(linkedList.tail.prev.value).to.equal(5);
+  });
+
   it("should remove the tail from the list when removeTail is called", function(){
     linkedList.addToTail(4);
     linkedList.addToTail(5);
