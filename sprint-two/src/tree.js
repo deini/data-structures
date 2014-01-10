@@ -25,6 +25,25 @@ treeMethods.addChild = function(value){
   }
 };
 
+treeMethods.removeFromParent = function() {
+
+  // if parent is not null (truthy)
+  // go to parent.children list and 
+  // remove this from the list
+  if (this.parent) {
+    var kids = this.parent.children;
+    for (var i = 0; i < kids.length; i++) {
+      if (kids[i] === this) {
+        this.parent.children.splice(i, 1);
+      }
+    }
+    this.parent = null;
+  }
+
+  // set parent = null
+
+};
+
 treeMethods.contains = function(target){
 
   if(this.value === target) {
