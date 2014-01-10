@@ -22,10 +22,35 @@ BinarySearchTree.prototype.insert = function(value) {
   }
 };
 
-BinarySearchTree.prototype.contains = function() {
+BinarySearchTree.prototype.contains = function(target) {
+  if(this.value === target) {
+    return true;
+  }
 
+  if(this.left) {
+    if(this.left.contains(target)) {
+      return true;
+    }
+  }
+  if(this.right) {
+    if (this.right.contains(target)) {
+      return true;
+    }
+  }
+  return false;
 };
 
-BinarySearchTree.prototype.depthFirstLog = function() {
+BinarySearchTree.prototype.depthFirstLog = function(func) {
+  var results = [];
 
+  var recurse = function(node) {
+    if(node) {
+      results.push(func(node.value));
+      recurse(node.left);
+      recurse(node.right);
+    }
+  };
+
+  recurse(this);
+  return results;
 };
