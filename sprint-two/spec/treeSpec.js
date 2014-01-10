@@ -50,12 +50,13 @@ describe("tree", function() {
     expect(tree.children[0].parent).to.equal(tree);
   });
 
-  it("should move the child from the parent", function() {
+  it("should remove the child from the parent", function() {
     tree.addChild(5);
     tree.addChild(10);
     expect(tree.children[0].parent).to.equal(tree);
+    var child = tree.children[0];
     tree.children[0].removeFromParent();
-    expect(tree.children[0].parent).to.equal(null);
+    expect(child.parent).to.equal(null);
     assert.isFalse(tree.contains(5));
   });
 
