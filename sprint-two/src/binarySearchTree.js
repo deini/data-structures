@@ -26,16 +26,20 @@ BinarySearchTree.prototype.contains = function(target) {
   if(this.value === target) {
     return true;
   }
+  debugger;
 
-  if(this.left) {
-    if(this.left.contains(target)) {
-      return true;
+  if(this.value > target) {
+    if(this.left) {
+      if(this.left.contains(target)) {
+        return true;
+      }
     }
-  }
-  if(this.right) {
-    if (this.right.contains(target)) {
-      return true;
-    }
+  } else {
+    if(this.right) {
+      if (this.right.contains(target)) {
+        return true;
+      }
+    } 
   }
   return false;
 };
