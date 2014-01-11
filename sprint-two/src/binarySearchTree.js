@@ -26,7 +26,6 @@ BinarySearchTree.prototype.contains = function(target) {
   if(this.value === target) {
     return true;
   }
-  debugger;
 
   if(this.value > target) {
     if(this.left) {
