@@ -5,18 +5,19 @@ var HashTable = function(){
 };
 
 HashTable.prototype.insert = function(k, v){
-  if (++this._pairs >= (this._limit * .75)) {
+  debugger;
+  if (++this._pairs >= (this._limit * 0.75)) {
     this.doubleHash();
   }  
   var i = getIndexBelowMaxForKey(k, this._limit);
-  if (Array.isArray(this._storage[i])) {
+  if (Array.isArray(this._storage.get(i))) {  //OMG BUG!!! if (Array.isArray(this._storage[i])) {
     var arr = this._storage.get(i);
     arr.push([k, v]);
-    this._storage.set(arr);
+    this._storage.set(i, arr); // OMG BUG!  this._storage.set(arr); 
   } else { 
     this._storage.set(i, [[k, v]]);
   }
-};
+}; //When we do the doubleHash() we lose 1 item.
 
 HashTable.prototype.retrieve = function(k){
   var i = getIndexBelowMaxForKey(k, this._limit);
@@ -52,39 +53,38 @@ HashTable.prototype.remove = function(k){
 HashTable.prototype.doubleHash = function() {
   var temp = [];
   this._storage.each(function(bucket) {
-    for (var key in bucket) {
-      temp.push(bucket[key]);
+    if(bucket) {// added this line
+      for (var key in bucket) {
+        temp.push(bucket[key]);
+      }
     }
   });
 
-  for (var i = 0; i < temp.length; i++) {
-    this.remove(temp[i][0]);
-  }
-
   this._limit *= 2;
   this._storage = makeLimitedArray(this._limit);
+  this._pairs = 0; // OMG ..... we didn't had this
 
   for (i = 0; i < temp.length; i++) {
     this.insert(temp[i][0], temp[i][1]);
   }
 };
 
-HashTable.prototype.halveHash = function() {
+HashTable.prototype.halveHash = function() { 
+  debugger;
   var temp = [];
     //debugger;
 
   this._storage.each(function(bucket) {
-    for (var key in bucket) {
-      temp.push(bucket[key]);
+    if(bucket) { // added this line 
+      for (var key in bucket) {
+        temp.push(bucket[key]);
+      }
     }
   });
 
-  for (var i = 0; i < temp.length; i++) {
-    this.remove(temp[i][0]);
-  }
-
   this._limit /= 2;
   this._storage = makeLimitedArray(this._limit);
+  this._pairs = 0; // OMG ..... we didn't had this
 
   for (var i = 0; i < temp.length; i++) {
     this.insert(temp[i][0], temp[i][1]);
