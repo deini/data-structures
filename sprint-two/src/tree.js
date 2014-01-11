@@ -26,10 +26,6 @@ treeMethods.addChild = function(value){
 };
 
 treeMethods.removeFromParent = function() {
-
-  // if parent is not null (truthy)
-  // go to parent.children list and 
-  // remove this from the list
   if (this.parent) {
     var kids = this.parent.children;
     for (var i = 0; i < kids.length; i++) {
@@ -39,13 +35,9 @@ treeMethods.removeFromParent = function() {
     }
     this.parent = null;
   }
-
-  // set parent = null
-
 };
 
 treeMethods.contains = function(target){
-
   if(this.value === target) {
     return true;
   }
@@ -66,19 +58,4 @@ treeMethods.traverse = function(func) {
     }
   }
 };
-
-// // BinarySearchTree.prototype.depthFirstLog = function(func) {
-//   var results = [];
-
-//   var recurse = function(node) {
-//     if(node) {
-//       results.push(func(node.value));
-//       recurse(node.left);
-//       recurse(node.right);
-//     }
-//   };
-
-//   recurse(this);
-//   return results;
-// };
 
