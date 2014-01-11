@@ -1,9 +1,13 @@
 var HashTable = function(){
-  this._limit = 8;
+  this._limit = 8 ;
   this._storage = makeLimitedArray(this._limit);
+  this._pairs = 0;
 };
 
 HashTable.prototype.insert = function(k, v){
+  if (++this._pairs >= (this._limit * .75)) {
+    this.doubleHash();
+  }  
   var i = getIndexBelowMaxForKey(k, this._limit);
   if (Array.isArray(this._storage[i])) {
     var arr = this._storage.get(i);
@@ -29,6 +33,7 @@ HashTable.prototype.retrieve = function(k){
 };
 
 HashTable.prototype.remove = function(k){
+  this._pairs--;
   var i = getIndexBelowMaxForKey(k, this._limit);
   var bucket = this._storage.get(i);
 
@@ -36,6 +41,28 @@ HashTable.prototype.remove = function(k){
     if(bucket[j][0] === k) {
       bucket.splice(j, 1);
     }
+  }
+};
+
+HashTable.prototype.doubleHash = function() {
+  var temp = [];
+  var tempPairs;
+  debugger;
+  this._storage.each(function(bucket) {
+    for (var key in bucket) {
+//    for(var i = 0; i < bucket.length; i++) {
+      temp.push(bucket[key]);
+    }
+  });
+
+  for (var i = 0; i < temp.length; i++) {
+    this.remove(temp[i][0]);
+  }
+
+  this._limit *= 2;
+
+  for (i = 0; i < temp.length; i++) {
+    this.insert(temp[i][0], temp[i][1]);
   }
 };
 
