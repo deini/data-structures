@@ -5,13 +5,19 @@ var HashTable = function(){
 };
 
 HashTable.prototype.insert = function(k, v){
-  debugger;
   if (++this._pairs >= (this._limit * 0.75)) {
     this.doubleHash();
   }  
   var i = getIndexBelowMaxForKey(k, this._limit);
   if (Array.isArray(this._storage.get(i))) {  //OMG BUG!!! if (Array.isArray(this._storage[i])) {
     var arr = this._storage.get(i);
+    for (var i = 0; i<arr.length; i++) {
+      if (arr[i][0] === k) {
+        //this._pairs--;
+        arr[i][1] = v;
+        return this._storage.set(arr);
+      } 
+    }
     arr.push([k, v]);
     this._storage.set(i, arr); // OMG BUG!  this._storage.set(arr); 
   } else { 
@@ -22,7 +28,7 @@ HashTable.prototype.insert = function(k, v){
 HashTable.prototype.retrieve = function(k){
   var i = getIndexBelowMaxForKey(k, this._limit);
   var arr = this._storage.get(i);
-  if(arr && arr.length > 0) {
+  if(arr) {
     for(var j = 0; j < arr.length; j++) {
       if(arr[j][0] === k) {
         return arr[j][1];
@@ -34,17 +40,18 @@ HashTable.prototype.retrieve = function(k){
 };
 
 HashTable.prototype.remove = function(k){
-  debugger;
+  // debugger;
   this._pairs--;
   var i = getIndexBelowMaxForKey(k, this._limit);
   var bucket = this._storage.get(i);
 
-  for(var j = 0; j < bucket.length; j++) {
-    if(bucket[j][0] === k) {
-      bucket.splice(j, 1);
+  if (bucket) {
+    for(var j = 0; j < bucket.length; j++) {
+      if(bucket[j][0] === k) {
+        bucket.splice(j, 1);
+      }
     }
   }
-
   if(this._pairs <= this._limit * 0.25) {
     this.halveHash();
   }
@@ -72,8 +79,6 @@ HashTable.prototype.doubleHash = function() {
 HashTable.prototype.halveHash = function() { 
   debugger;
   var temp = [];
-    //debugger;
-
   this._storage.each(function(bucket) {
     if(bucket) { // added this line 
       for (var key in bucket) {
