@@ -11,12 +11,13 @@ HashTable.prototype.insert = function(k, v){
   var i = getIndexBelowMaxForKey(k, this._limit);
   if (Array.isArray(this._storage.get(i))) {
     var arr = this._storage.get(i);
-    for (var j = 0; j<arr.length; j++) {
-      if (arr[j][0] === k) {
-        arr[j][1] = v;
+
+    $.each(arr, function(item, index) {
+      if (item[0] === k) {
+        item[1] = v;
         return this._storage.set(i, arr);
-      } 
-    }
+      }
+    });
     arr.push([k, v]);
     this._storage.set(i, arr); 
   } else { 
