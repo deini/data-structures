@@ -46,11 +46,9 @@ HashTable.prototype.remove = function(k){
 
 HashTable.prototype.doubleHash = function() {
   var temp = [];
-  var tempPairs;
   debugger;
   this._storage.each(function(bucket) {
     for (var key in bucket) {
-//    for(var i = 0; i < bucket.length; i++) {
       temp.push(bucket[key]);
     }
   });
@@ -60,6 +58,7 @@ HashTable.prototype.doubleHash = function() {
   }
 
   this._limit *= 2;
+  this._storage = makeLimitedArray(this._limit);
 
   for (i = 0; i < temp.length; i++) {
     this.insert(temp[i][0], temp[i][1]);
