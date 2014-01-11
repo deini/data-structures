@@ -60,7 +60,6 @@ describe("hashTable", function() {
     hashTable.remove("Steven");
     hashTable.remove("John");
     hashTable.remove("Mr.");
-    hashTable.remove("Alan");
     expect(hashTable._limit).to.equal(8);
   });
 });
