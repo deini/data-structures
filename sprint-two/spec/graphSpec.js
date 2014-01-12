@@ -51,7 +51,7 @@ describe("graph", function() {
     assert.isFalse(graph.getEdge("apples", "bananas"));
   });
 
-  xit("should remove nodes without any edges", function() {
+  it("should remove nodes without any edges", function() {
     graph.addNode("jacket");
     graph.addNode("hat");
     graph.removeEdge("jacket", "hat");
