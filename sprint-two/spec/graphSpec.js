@@ -22,7 +22,7 @@ describe("graph", function() {
     assert.isTrue(graph.contains("kittens"));
   });
 
-  xit("should remove nodes that were inserted", function() {
+  it("should remove nodes that were inserted", function() {
     graph.addNode("puppies");
     graph.removeNode("puppies");
     assert.isFalse(graph.contains("puppies"));
