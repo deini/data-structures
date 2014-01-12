@@ -4,10 +4,15 @@ var Graph = function(){
 };
 
 Graph.prototype.addNode = function(newNode, toNode){
-  var keys = Object.keys(this.nodes);
 
-  if (keys.length === 1) {
-    this.addEdge(this.nodes[keys[0]], newNode);
+  if(toNode) {
+    this.addEdge(newNode, toNode);
+  }
+  else {
+    var keys = Object.keys(this.nodes);
+    if (keys.length === 1) {
+      this.addEdge(this.nodes[keys[0]], newNode);
+    }  
   }
   this.nodes[newNode] = newNode;
 };
