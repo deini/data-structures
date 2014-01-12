@@ -42,7 +42,7 @@ describe("graph", function() {
     assert.isFalse(graph.getEdge("penguins", "kittens"));
   });
 
-  xit("should remove edges between nodes", function() {
+  it("should remove edges between nodes", function() {
     graph.addNode("apples");
     graph.addNode("bananas");
     graph.addNode("satsumas", "bananas");
