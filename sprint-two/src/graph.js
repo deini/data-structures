@@ -40,34 +40,29 @@ Graph.prototype.addEdge = function(fromNode, toNode){
   this.edges[fromNode][toNode] = true;
 };
 
+
 Graph.prototype.removeEdge = function(fromNode, toNode){
+  var removeEdgelessNodes = function(graph, node) {
+    var exists = false;
+    
+    for(var keys in graph.edges) {
+      if(graph.getEdge(keys, node)) {
+        exists = true;
+      }
+    }
+    if(!exists) {
+      graph.removeNode(node);
+    }
+  };
+
   delete this.edges[fromNode][toNode];
-  var exists = false;
 
   if(Object.keys(this.edges[fromNode]).length === 0) {
     delete this.edges[fromNode];
-
-    for(var keys in this.edges) {
-      if(this.edges[keys][fromNode]) {
-        exists = true;
-      }
-    }
-  }
-  if(!exists) {
-    this.removeNode(fromNode);
+    removeEdgelessNodes(this, fromNode);
   }
 
-  exists = false;
-  if(this.edges[toNode]) {
-
-    for(var keys in this.edges) {
-      if(this.edges[keys][toNode]) {
-        exists = true;
-      }
-    }
-  }
-  if(!exists) {
-    this.removeNode(toNode);
+  if(!this.edges[toNode]) {
+    removeEdgelessNodes(this, toNode);
   }
 };
-
