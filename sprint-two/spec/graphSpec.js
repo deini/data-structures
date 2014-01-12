@@ -28,7 +28,7 @@ describe("graph", function() {
     assert.isFalse(graph.contains("puppies"));
   });
 
-  xit("should automatically create an edge between two nodes if there is only one node in the graph", function() {
+  it("should automatically create an edge between two nodes if there is only one node in the graph", function() {
     graph.addNode("puppies");
     graph.addNode("kittens");
     assert.isTrue(graph.getEdge("puppies", "kittens"));
