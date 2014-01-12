@@ -7,7 +7,7 @@ describe("graph", function() {
     graph = new Graph();
   });
 
-  xit("should have methods named 'addNode', 'contains', 'removeNode', 'addEdge', 'getEdge', 'removeEdge' and 'forEachNode'", function() {
+  it("should have methods named 'addNode', 'contains', 'removeNode', 'addEdge', 'getEdge', 'removeEdge' and 'forEachNode'", function() {
     expect(graph.addNode).to.be.a('function');
     expect(graph.contains).to.be.a('function');
     expect(graph.removeNode).to.be.a('function');
@@ -16,7 +16,7 @@ describe("graph", function() {
     expect(graph.removeEdge).to.be.a('function');
   });
 
-  xit("should store values as nodes that were inserted", function() {
+  it("should store values as nodes that were inserted", function() {
     graph.addNode("kittens");
     graph.contains("kittens");
     assert.isTrue(graph.contains("kittens"));
