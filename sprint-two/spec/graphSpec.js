@@ -34,7 +34,7 @@ describe("graph", function() {
     assert.isTrue(graph.getEdge("puppies", "kittens"));
   });
 
-  xit("should create edges between two nodes", function() {
+  it("should create edges between two nodes", function() {
     graph.addNode("puppies");
     graph.addNode("kittens");
     graph.addNode("penguins", "puppies");
