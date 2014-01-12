@@ -23,10 +23,11 @@ Graph.prototype.contains = function(node){
 
 Graph.prototype.removeNode = function(node){
   delete this.nodes[node];
+
 };
 
 Graph.prototype.getEdge = function(fromNode, toNode){
-  if (this.edges[fromNode][toNode]) {
+  if (this.edges[fromNode] && this.edges[fromNode][toNode]) {
     return true;
   }
   return false;
@@ -41,4 +42,32 @@ Graph.prototype.addEdge = function(fromNode, toNode){
 
 Graph.prototype.removeEdge = function(fromNode, toNode){
   delete this.edges[fromNode][toNode];
+  var exists = false;
+
+  if(Object.keys(this.edges[fromNode]).length === 0) {
+    delete this.edges[fromNode];
+
+    for(var keys in this.edges) {
+      if(this.edges[keys][fromNode]) {
+        exists = true;
+      }
+    }
+  }
+  if(!exists) {
+    this.removeNode(fromNode);
+  }
+
+  exists = false;
+  if(this.edges[toNode]) {
+
+    for(var keys in this.edges) {
+      if(this.edges[keys][toNode]) {
+        exists = true;
+      }
+    }
+  }
+  if(!exists) {
+    this.removeNode(toNode);
+  }
 };
+
