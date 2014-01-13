@@ -1,10 +1,12 @@
 var HashTable = function(){
-  this._limit = 8 ;
+  this._limit = 8;
   this._storage = makeLimitedArray(this._limit);
   this._pairs = 0;
+  this._bloom = Array.apply(null, new Array(18)).map(Number.prototype.valueOf,0);
 };
 
 HashTable.prototype.insert = function(k, v){
+  this.insertToBloom(k);
   if (++this._pairs >= (this._limit * 0.75)) {
     this.reHash(this._limit * 2);
   }  
@@ -85,6 +87,22 @@ HashTable.prototype.reHash = function(newLimit) {
   each(temp, function(item) {
     hash.insert(item[0], item[1]);
   });
+};
+
+HashTable.prototype.insertToBloom = function(key) {
+  for(var j = 0; j < 3; j++) {
+    this._bloom[murmurhash3_32_gc(key, j) % 18] = 1;
+  }
+};
+
+HashTable.prototype.bloomPredict = function(key) {
+
+  for(var j = 0; j < 3; j++) {
+    if (this._bloom[murmurhash3_32_gc(key, j) % 18] === 0) {
+      return false;
+    }
+  }
+  return true;
 };
 
 var each = function(collection, iterator) {

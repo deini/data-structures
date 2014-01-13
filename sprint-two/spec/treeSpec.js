@@ -44,4 +44,30 @@ describe("tree", function() {
     assert.isTrue(tree.contains(8));
   });
 
+  it("should add a parent", function() {
+    tree.addChild(5);
+    tree.addChild(10);
+    expect(tree.children[0].parent).to.equal(tree);
+  });
+
+  it("should remove the child from the parent", function() {
+    tree.addChild(5);
+    tree.addChild(10);
+    expect(tree.children[0].parent).to.equal(tree);
+    var child = tree.children[0];
+    tree.children[0].removeFromParent();
+    expect(child.parent).to.equal(null);
+    assert.isFalse(tree.contains(5));
+  });
+
+  it("it should traverse the tree calling the callback on each value", function() {
+    tree.addChild(5);
+    tree.addChild(10);
+    tree.children[0].addChild(3);
+    var results = [];
+    tree.traverse(function(val) { results.push(val); });
+    expect(results[0]).to.equal(undefined);
+    expect(results[3]).to.equal(10);
+  });
+
 });
