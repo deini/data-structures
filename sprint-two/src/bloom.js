@@ -91,14 +91,14 @@ HashTable.prototype.reHash = function(newLimit) {
 
 HashTable.prototype.insertToBloom = function(key) {
   for(var j = 0; j < 3; j++) {
-    this._bloom[getIndexBelowMaxForKey(key+j, 18)] = 1;
+    this._bloom[murmurhash3_32_gc(key, j) % 18] = 1;
   }
 };
 
 HashTable.prototype.bloomPredict = function(key) {
 
   for(var j = 0; j < 3; j++) {
-    if (this._bloom[getIndexBelowMaxForKey(key+j, 18)] === 0) {
+    if (this._bloom[murmurhash3_32_gc(key, j) % 18] === 0) {
       return false;
     }
   }
